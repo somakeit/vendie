@@ -39,5 +39,6 @@ def flush_serial(serial_obj: serial.Serial) -> None:
 
 if __name__ == '__main__':
     card_reader, vendor_serial = connect_to_vendor()
+    wait_for_rfid()
 
 
