@@ -26,6 +26,17 @@ def connect_to_vendor() -> (serial.Serial, serial.Serial):
     return card_reader, vendor_serial
 
 
+def wait_for_rfid() -> None:
+    print('Waiting for Card')
+    flush_serial(card_reader)
+
+
+def flush_serial(serial_obj: serial.Serial) -> None:
+    serial_obj.flush()
+    serial_obj.flushInput()
+    serial_obj.flushOutput()
+
+
 if __name__ == '__main__':
     card_reader, vendor_serial = connect_to_vendor()
 
