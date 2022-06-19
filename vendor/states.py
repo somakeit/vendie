@@ -2,6 +2,14 @@ from enum import Enum
 from abc import ABC, abstractmethod
 
 
+def _method_enter_exit(f):
+    def wrapper(*args, **kwargs):
+        print(f'Entering {args[0].__class__.__name__}')
+        print(f'Exiting {args[0].__class__.__name__}')
+        return f(*args, *kwargs)
+    return wrapper
+
+
 class State(Enum):
     INACTIVE = 1
     DISABLED = 2
@@ -21,21 +29,23 @@ class BaseState(ABC):
 class Inactive(BaseState):
     name = State.INACTIVE
 
+    @_method_enter_exit
     def run(self) -> State:
-        print("Entering Inactive")
         return State.DISABLED
 
 
 class Disabled(BaseState):
     name = State.DISABLED
 
+    @_method_enter_exit
     def run(self) -> State:
-        print("Entering Disabled")
+        pass
 
 
 class Enabled(BaseState):
     name = State.ENABLED
 
+    @_method_enter_exit
     def run(self) -> State:
         pass
 
@@ -43,6 +53,7 @@ class Enabled(BaseState):
 class SessionIdle(BaseState):
     name = State.SESSION_IDLE
 
+    @_method_enter_exit
     def run(self) -> State:
         pass
 
@@ -50,6 +61,7 @@ class SessionIdle(BaseState):
 class Vend(BaseState):
     name = State.VEND
 
+    @_method_enter_exit
     def run(self) -> State:
         pass
 
@@ -65,5 +77,3 @@ def build_state_map():
 
 if __name__ == '__main__':
     print([state for state in list(State)])
-
-    print(State.get_class(State.INACTIVE))
