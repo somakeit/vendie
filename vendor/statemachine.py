@@ -1,11 +1,20 @@
 from .states import State, build_state_map, BaseState
+from .config import PORT_DESCRIPTIONS
+import serial
 
 
 class CashlessDevice:
-
     def __init__(self):
         self.current_state: State = State.INACTIVE
-        self._state_map: dict[State:BaseState] = build_state_map()
+        self._state_map: dict[State:BaseState] = build_state_map(self)
+        self.card_reader = None
+        self.vendor = None
+
+        self._init_devices()
+
+    def _init_devices(self):
+        # self.card_reader = [serial.Serial(port.device) for port in list_ports.comports()]
+        pass
 
     def start(self):
         while True:

@@ -4,9 +4,10 @@ from abc import ABC, abstractmethod
 
 def _method_enter_exit(f):
     def wrapper(*args, **kwargs):
-        print(f'Entering {args[0].__class__.__name__}')
-        print(f'Exiting {args[0].__class__.__name__}')
-        return f(*args, *kwargs)
+        print(f'Entering the {args[0].__class__.__name__} state')
+        func = f(*args, *kwargs)
+        print(f'Exiting the {args[0].__class__.__name__} state')
+        return func
     return wrapper
 
 
@@ -20,6 +21,9 @@ class State(Enum):
 
 class BaseState(ABC):
     name: State
+
+    def __init__(self, state_machine):
+        self._state_machine = state_machine
 
     @abstractmethod
     def run(self) -> State:
@@ -66,13 +70,9 @@ class Vend(BaseState):
         pass
 
 
-def build_state_map():
-    state_map = {}
-    for _class in BaseState.__subclasses__():
-        if _class.name in list(State):
-            state_map[_class.name] = _class()
-
-    return state_map
+def build_state_map(state_machine):
+    """ Using a dictionary comprehension to condense a dictionary-building for-loop to 1 line in a pythonic way """
+    return {_class.name: _class(state_machine) for _class in BaseState.__subclasses__() if _class.name in list(State)}
 
 
 if __name__ == '__main__':
