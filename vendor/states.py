@@ -8,6 +8,8 @@ class State(Enum):
     SESSION_IDLE = 4
     VEND = 5
 
+    
+
 
 if __name__ == '__main__':
     print([state for state in list(State)])
