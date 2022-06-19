@@ -1,4 +1,4 @@
-from vendor.states import State, build_state_map, BaseState
+from .states import State, build_state_map, BaseState
 
 
 class CashlessDevice:

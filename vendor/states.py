@@ -1,6 +1,5 @@
 from enum import Enum
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 
 
 class State(Enum):
