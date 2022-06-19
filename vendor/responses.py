@@ -13,8 +13,10 @@ class Response(Enum):
     END_SESSION = '0x07'
     CANCELLED = '0x08'
     PERIPHERAL_ID = '0x09'
-    MALFUNCTION_ERROR = '0xA'
-    CMD_OUT_OF_SEQUENCE = '0xB'
+    MALFUNCTION_ERROR = '0x0A'
+    CMD_OUT_OF_SEQUENCE = '0x0B'
+    ACKNOWLEDGE = '0x00'
+    NOT_ACKNOWLEDGED = '0xFF'
 
 # 00H - Just Reset
 # 01H - Reader Config Data
