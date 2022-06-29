@@ -38,7 +38,7 @@ class Inactive(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        print(self.vendor.write(bytes.fromhex('00')))
+        print(self.vendor.write(bytes.fromhex('0404')))
         while True:
             response = self.vendor.read_until(b'\x03')
             print(response)
