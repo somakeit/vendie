@@ -52,9 +52,11 @@ class Inactive(BaseState):
                 command = self.vendor.read_until(b'\x03')
                 # command_str = command.hex().upper()
                 command_ascii = command.decode('ascii')
+                command_utf8 = command.decode('utf-8')
                 command_str = str(command_ascii)[3:]
                 print(f'{command=}')
                 print(f'{bytearray(command)=}')
+                print(f'{command_utf8=}')
                 print(f'{command.hex()=}')
                 print(f'{str(command)=}')
                 print(f'{command_ascii=}')
