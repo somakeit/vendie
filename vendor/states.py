@@ -40,8 +40,9 @@ class Inactive(BaseState):
     def run(self) -> State:
         print(self.vendor.write(bytes.fromhex('00')))
         while True:
-            response = self.vendor.readuntil(b'\x03')
+            response = self.vendor.read_until(b'\x03')
             print(response)
+            print(response.decode('ascii'))
 
         return State.DISABLED
 
