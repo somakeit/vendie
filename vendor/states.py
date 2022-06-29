@@ -52,12 +52,12 @@ class Inactive(BaseState):
                 command = self.vendor.read_until(b'\x03')
                 # command_str = command.hex().upper()
                 command_ascii = command.decode('ascii')
-                command_str = str(command_ascii)
+                command_str = str(command_ascii)[2:6]
                 print(f'{command=}')
                 print(f'{command_ascii=}')
                 print(f'{command_str=}')
                 try:
-                    print(Command(command_str[:4]))
+                    print(Command(command_str))
                 except ValueError:
                     print('Unknown Command')
             except KeyboardInterrupt:
