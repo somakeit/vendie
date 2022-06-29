@@ -37,7 +37,7 @@ class Inactive(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        print(self.card_reader.read())
+        print(self.vendor.read())
 
         return State.DISABLED
 
