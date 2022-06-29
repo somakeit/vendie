@@ -19,7 +19,7 @@ class Response(Enum):
     NOT_ACKNOWLEDGED = 0xFF
 
     def __bytes__(self):
-        return bytes().fromhex(self.value)
+        return bytes(self.value)
 
 # 00H - Just Reset
 # 01H - Reader Config Data
