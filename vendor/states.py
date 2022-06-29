@@ -55,7 +55,6 @@ class Inactive(BaseState):
                 command_str = str(command_ascii)[4:8]
                 print(f'{command=}')
                 print(f'{bytearray(command)=}')
-                print(f'{bytearray.fromhex(command)=}')
                 print(f'{command.hex()=}')
                 print(f'{str(command)=}')
                 print(f'{command_ascii=}')
