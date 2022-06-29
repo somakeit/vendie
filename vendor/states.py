@@ -53,7 +53,7 @@ class Inactive(BaseState):
                 # command_str = command.hex().upper()
                 command_ascii = command.decode('ascii')
                 command_utf8 = command.decode('utf-8')
-                command_str = command_ascii[1:]
+                command_str = command_ascii[1:5]
                 print(f'{command=}')
                 print(f'{bytearray(command)=}')
                 print(f'{command_utf8=}')
