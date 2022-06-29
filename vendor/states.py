@@ -52,6 +52,8 @@ class Inactive(BaseState):
                 command = self.vendor.read_until(b'\x03')
                 # command_str = command.hex().upper()
                 command_str = command.decode('ascii')
+                print(f'{command=}')
+                print(f'{command_str=}')
                 try:
                     print(Command(command_str[:4]))
                 except ValueError:
