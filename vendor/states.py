@@ -45,7 +45,7 @@ class Inactive(BaseState):
 
         # Send reset command
         self.vendor.write(bytes.fromhex('00'))
-        echo = self.vendor.read_until(bytes.fromhex('00'))
+        # echo = self.vendor.read_until(bytes.from_hex('00'))
 
         while True:
             try:
