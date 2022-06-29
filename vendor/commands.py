@@ -49,7 +49,7 @@ class Command(Enum):
     READER_ENABLE = '1401'
     READER_CANCEL = '1402'
 
-    EXPANSION_REQUEST_ID = '1703'
+    EXPANSION_REQUEST_ID = '1700'
     EXPANSION_DIAGNOSTIC = '17FF'
 
     def __bytes__(self):
