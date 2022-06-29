@@ -24,6 +24,8 @@ class BaseState(ABC):
 
     def __init__(self, state_machine):
         self._state_machine = state_machine
+        self.card_reader = state_machine.card_reader
+        self.vendor = state_machine.vendor
 
     @abstractmethod
     def run(self) -> State:
@@ -35,6 +37,8 @@ class Inactive(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
+        print(self.card_reader.read())
+
         return State.DISABLED
 
 

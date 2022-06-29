@@ -7,11 +7,12 @@ import serial
 class CashlessDevice:
     def __init__(self):
         self.current_state: State = State.INACTIVE
-        self._state_map: dict[State:BaseState] = build_state_map(self)
         self.card_reader = None
         self.vendor = None
 
         self._init_devices()
+
+        self._state_map: dict[State:BaseState] = build_state_map(self)
 
     def _init_devices(self):
         self.card_reader = get_serial_device_from_description(PORT_DESCRIPTIONS['card_reader'])
@@ -19,7 +20,7 @@ class CashlessDevice:
 
         print(f'Card Reader ({PORT_DESCRIPTIONS["card_reader"]})'
               f' {"found" if self.card_reader is not None else "not found!"}')
-        print(f'Card Reader ({PORT_DESCRIPTIONS["vendor"]})'
+        print(f'Vendor ({PORT_DESCRIPTIONS["vendor"]})'
               f' {"found" if self.vendor is not None else "not found!"}')
 
     def start(self):

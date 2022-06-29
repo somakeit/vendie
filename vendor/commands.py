@@ -61,4 +61,4 @@ if __name__ == '__main__':
         actual_command = None
 
     print(hex(serial_command))
-    print(actual_command)
+    print(actual_command.name)
