@@ -2,6 +2,7 @@ from enum import Enum
 from abc import ABC, abstractmethod
 from .responses import Response
 from .functions import flush_serial
+from .commands import Command
 
 
 def _method_enter_exit(f):
@@ -44,19 +45,16 @@ class Inactive(BaseState):
 
         # Send reset command
         self.vendor.write(bytes.fromhex('00'))
+        echo = self.vendor.read_until(bytes.fromhex('00'))
 
         while True:
             try:
-                address = self.vendor.read_until(b'\x03')
-                print(address.decode('ascii'))
+                command = self.vendor.read_until(b'\x03')
+                command_str = command.hex().upper()
+                print(command.decode('ascii'))
+                print(Command(command_str))
             except KeyboardInterrupt:
                 break
-
-        # Command out of sequence
-        self.vendor.write(bytes.fromhex('0B'))
-
-        address = self.vendor.read_until(b'\x03')
-        print(address.decode('ascii'))
 
         return State.DISABLED
 

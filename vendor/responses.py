@@ -3,27 +3,23 @@ from enum import Enum
 
 
 class Response(Enum):
-    JUST_RESET = 0x00
-    READER_CONFIG_DATA = 0x01
-    DISPLAY_REQUEST = 0x02
-    BEGIN_SESSION = 0x03
-    SESSION_CANCEL_REQUEST = 0x04
-    VEND_APPROVED = 0x05
-    VEND_DENIED = 0x06
-    END_SESSION = 0x07
-    CANCELLED = 0x08
-    PERIPHERAL_ID = 0x09
-    MALFUNCTION_ERROR = 0x0A
-    CMD_OUT_OF_SEQUENCE = 0x0B
-    ACKNOWLEDGE = 0x00
-    NOT_ACKNOWLEDGED = 0xFF
+    JUST_RESET = '00'
+    READER_CONFIG_DATA = '01'
+    DISPLAY_REQUEST = '02'
+    BEGIN_SESSION = '03'
+    SESSION_CANCEL_REQUEST = '04'
+    VEND_APPROVED = '05'
+    VEND_DENIED = '06'
+    END_SESSION = '07'
+    CANCELLED = '08'
+    PERIPHERAL_ID = '09'
+    MALFUNCTION_ERROR = '0A'
+    CMD_OUT_OF_SEQUENCE = '0B'
+    ACKNOWLEDGE = '00'
+    NOT_ACKNOWLEDGED = 'FF'
 
     def __bytes__(self):
-        return bytes(self.value)
-
-    @property
-    def hex(self):
-        return hex(self.value)
+        return bytes.fromhex(self.value)
 
 # 00H - Just Reset
 # 01H - Reader Config Data
@@ -37,8 +33,13 @@ class Response(Enum):
 # 08H - Cancelled
 # 09H - Peripheral ID
 # 0AH - Malfunction / Error
-# 0BH - Cmd Out Of
-# Sequence
+# 0BH - Cmd Out Of Sequence
+
 
 if __name__ == '__main__':
-    print(Response.ACKNOWLEDGE.hex)
+    response = Response.MALFUNCTION_ERROR
+
+    print(response)
+    print(response.value)
+    print(bytes(response))
+    print(bytes(response).hex())

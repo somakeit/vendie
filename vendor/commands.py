@@ -26,39 +26,35 @@ from enum import Enum
 #     EXPANSION_DIAGNOSTIC = 0xFF
 
 class Command(Enum):
-    _SETUP_BASE = 0x1161
-    _VEND_BASE = 0x1363
-    _READER_BASE = 0x1464
-    _EXPANSION_BASE = 0x1767
+    _SETUP_BASE = '11'
+    _VEND_BASE = '13'
+    _READER_BASE = '14'
+    _EXPANSION_BASE = '17'
 
-    RESET = 0x1060
+    RESET = '10'
 
-    SETUP_CONFIG_DATA = 0x116100
-    SETUP_MAX_MIN_PRICES = 0x116101
+    SETUP_CONFIG_DATA = '1100'
+    SETUP_MAX_MIN_PRICES = '1101'
 
-    POLL = 0x1262
+    POLL = '12'
 
-    VEND_REQUEST = 0x136300
-    VEND_CANCEL = 0x136301
-    VEND_SUCCESS = 0x136302
-    VEND_FAILURE = 0x136303
-    VEND_SESSION_COMPLETE = 0x136304
-    VEND_CASH_SALE = 0x136305
+    VEND_REQUEST = '1300'
+    VEND_CANCEL = '1301'
+    VEND_SUCCESS = '1302'
+    VEND_FAILURE = '1303'
+    VEND_SESSION_COMPLETE = '1304'
+    VEND_CASH_SALE = '1305'
 
-    READER_DISABLE = 0x146400
-    READER_ENABLE = 0x146401
-    READER_CANCEL = 0x146402
+    READER_DISABLE = '1400'
+    READER_ENABLE = '1401'
+    READER_CANCEL = '1402'
 
-    EXPANSION_REQUEST_ID = 0x176703
-    EXPANSION_DIAGNOSTIC = 0x1767FF
+    EXPANSION_REQUEST_ID = '1703'
+    EXPANSION_DIAGNOSTIC = '17FF'
+
+    def __bytes__(self):
+        bytes.fromhex(self.value)
 
 
 if __name__ == '__main__':
-    serial_command = 0x136300
-    try:
-        actual_command = Command(serial_command)
-    except ValueError:
-        actual_command = None
 
-    print(hex(serial_command))
-    print(actual_command.name)
