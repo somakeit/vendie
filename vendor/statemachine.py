@@ -19,7 +19,7 @@ class CashlessDevice:
 
         print(f'Card Reader ({PORT_DESCRIPTIONS["card_reader"]})'
               f' {"found" if self.card_reader is not None else "not found!"}')
-        print(f'Card Reader ({PORT_DESCRIPTIONS["vendor"]})'
+        print(f'Vendor ({PORT_DESCRIPTIONS["vendor"]})'
               f' {"found" if self.vendor is not None else "not found!"}')
 
     def start(self):
