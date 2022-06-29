@@ -52,7 +52,7 @@ class Inactive(BaseState):
                 command = self.vendor.read_until(b'\x03')
                 command_str = command.hex().upper()
                 print(command.decode('ascii'))
-                print(Command(command_str))
+                print(Command(command_str[:4]))
             except KeyboardInterrupt:
                 break
 
