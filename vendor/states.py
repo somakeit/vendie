@@ -38,8 +38,10 @@ class Inactive(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        print(self.vendor.read())
-        print(self.vendor.write(Response.ACKNOWLEDGE.value))
+        print(self.vendor.write(bytes.fromhex('00')))
+        while True:
+            response = self.vendor.read()
+            print(response)
 
         return State.DISABLED
 

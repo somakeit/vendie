@@ -21,6 +21,10 @@ class Response(Enum):
     def __bytes__(self):
         return bytes(self.value)
 
+    @property
+    def hex(self):
+        return hex(self.value)
+
 # 00H - Just Reset
 # 01H - Reader Config Data
 # 02H - Display Request
@@ -35,3 +39,6 @@ class Response(Enum):
 # 0AH - Malfunction / Error
 # 0BH - Cmd Out Of
 # Sequence
+
+if __name__ == '__main__':
+    print(Response.ACKNOWLEDGE.hex)
