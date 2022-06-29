@@ -51,10 +51,11 @@ class Inactive(BaseState):
             try:
                 command = self.vendor.read_until(b'\x03')
                 # command_str = command.hex().upper()
-                command_str = command.decode('ascii')
+                command_ascii = command.decode('ascii')
+                command_str = command.hex()
                 print(f'{command=}')
+                print(f'{command_ascii=}')
                 print(f'{command_str=}')
-                print(f'{command.hex()=}')
                 try:
                     print(Command(command_str[:4]))
                 except ValueError:
