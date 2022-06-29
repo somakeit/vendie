@@ -1,5 +1,6 @@
 from enum import Enum
 from abc import ABC, abstractmethod
+from .responses import Response
 
 
 def _method_enter_exit(f):
@@ -38,6 +39,7 @@ class Inactive(BaseState):
     @_method_enter_exit
     def run(self) -> State:
         print(self.vendor.read())
+        print(self.vendor.write(Response.ACKNOWLEDGE))
 
         return State.DISABLED
 
