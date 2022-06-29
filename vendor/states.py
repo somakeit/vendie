@@ -51,8 +51,11 @@ class Inactive(BaseState):
             try:
                 command = self.vendor.read_until(b'\x03')
                 # command_str = command.hex().upper()
-                print(command.decode('ascii'))
-                # print(Command(command_str[:4]))
+                command_str = command.decode('ascii')
+                try:
+                    print(Command(command_str[:4]))
+                except ValueError:
+                    print('Unknown Command')
             except KeyboardInterrupt:
                 break
 
