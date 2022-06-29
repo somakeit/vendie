@@ -39,7 +39,7 @@ class Inactive(BaseState):
     @_method_enter_exit
     def run(self) -> State:
         print(self.vendor.read())
-        print(self.vendor.write(Response.ACKNOWLEDGE))
+        print(self.vendor.write(Response.ACKNOWLEDGE.value))
 
         return State.DISABLED
 
