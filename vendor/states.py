@@ -54,6 +54,7 @@ class Inactive(BaseState):
                 command_str = command.decode('ascii')
                 print(f'{command=}')
                 print(f'{command_str=}')
+                print(f'{command.hex()=}')
                 try:
                     print(Command(command_str[:4]))
                 except ValueError:
