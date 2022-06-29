@@ -22,10 +22,11 @@ class CashlessDevice:
         print(f'Card Reader ({PORT_DESCRIPTIONS["vendor"]})'
               f' {"found" if self.vendor is not None else "not found!"}')
 
-
-
-
     def start(self):
+        if None in (self.card_reader, self.vendor):
+            print('Not all devices found... cannot start')
+            return
+
         while True:
             next_state = self._state_map[self.current_state].run()
 
