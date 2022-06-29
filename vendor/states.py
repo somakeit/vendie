@@ -45,8 +45,12 @@ class Inactive(BaseState):
         # Send reset command
         self.vendor.write(bytes.fromhex('00'))
 
-        address = self.vendor.read_until(b'\x03')
-        print(address.decode('ascii'))
+        while True:
+            try:
+                address = self.vendor.read_until(b'\x03')
+                print(address.decode('ascii'))
+            except KeyboardInterrupt:
+                break
 
         # Command out of sequence
         self.vendor.write(bytes.fromhex('0B'))
