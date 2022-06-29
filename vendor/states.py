@@ -41,7 +41,7 @@ class Inactive(BaseState):
     def run(self) -> State:
         flush_serial(self.vendor)
         flush_serial(self.card_reader)
-        self.vendor.write(bytes.fromhex('0404'))
+        self.vendor.write(bytes.fromhex(hex(Response.MALFUNCTION_ERROR.value)))
         while True:
             response = self.vendor.read_until(b'\x03')
             print(response)
