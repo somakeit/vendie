@@ -45,12 +45,13 @@ class Inactive(BaseState):
         flush_serial(self.card_reader)
 
         # Send reset command
-        self.vendor.write(bytes.fromhex(Response.JUST_RESET.value))
+        self._state_machine.send_response(Response.JUST_RESET)
+        # self.vendor.write(bytes.fromhex(Response.JUST_RESET.value))
 
         while True:
             try:
-                command = self.vendor.read_until(b'\x03').decode(ENCODING)
-                command_str = command[1:-1]
+                command_str = self._state_machine.read_command()
+                # command = self.vendor.read_until(b'\x03').decode(ENCODING)
                 print(command_str)
                 try:
                     print(Command(command_str))

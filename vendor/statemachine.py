@@ -1,6 +1,9 @@
+from .responses import Response
 from .states import State, build_state_map, BaseState
-from .config import PORT_DESCRIPTIONS
+from .config import PORT_DESCRIPTIONS, ENCODING
 from .functions import get_serial_device_from_description
+from .commands import Command
+
 import serial
 
 
@@ -38,3 +41,14 @@ class CashlessDevice:
 
     def set_state(self, state: State):
         self.current_state = state
+
+    def read_command(self) -> Command:
+        """Reads until Hex value 03 which signifies end of command"""
+        command = self.vendor.read_until(b'\x03').decode(ENCODING)
+        command = command[1:-1]
+        return command
+
+    def send_reponse(self, response: Response):
+        self.vendor.write(bytes.fromhex(response.value))
+
+
