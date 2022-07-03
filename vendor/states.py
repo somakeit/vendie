@@ -127,11 +127,12 @@ class Enabled(BaseState):
                 print(f'Card {UID} read!')
                 # Validate Card using API here
 
-            match command:
-                case Command.RESET:
-                    return State.INACTIVE
-                case Command.READER_DISABLE:
-                    return State.DISABLED
+            else:
+                match command:
+                    case Command.RESET:
+                        return State.INACTIVE
+                    case Command.READER_DISABLE:
+                        return State.DISABLED
 
 
 class SessionIdle(BaseState):
