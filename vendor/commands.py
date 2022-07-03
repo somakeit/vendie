@@ -55,6 +55,21 @@ class Command(Enum):
     def __bytes__(self):
         bytes.fromhex(self.value)
 
+    @staticmethod
+    def find_command(self, command_string):
+        try:
+            command = Command(command_string[:4])
+        except KeyError:
+            command = None
+
+        if command is None:
+            try:
+                command = Command(command_string[:2])
+            except KeyError:
+                command = None
+
+        return command
+
 
 if __name__ == '__main__':
     pass
