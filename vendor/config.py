@@ -6,5 +6,5 @@ PORT_DESCRIPTIONS = {
 
 ENCODING = 'utf-8'
 
-DEBUG = True
+DEBUG = False
 SHOW_ENTER_EXIT = True

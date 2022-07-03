@@ -92,11 +92,9 @@ class Disabled(BaseState):
 
             match command:
                 case Command.READER_ENABLE:
-                    break
-                case _:
-                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
-
-        return State.ENABLED
+                    return State.ENABLED
+                case Command.RESET:
+                    return State.INACTIVE
 
 
 class Enabled(BaseState):
@@ -108,6 +106,7 @@ class Enabled(BaseState):
         while True:
             flush_serial(self.card_reader)
             UID = self.card_reader.read().decode(ENCODING)
+
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
             if DEBUG:
@@ -115,6 +114,13 @@ class Enabled(BaseState):
                 print(f'{command=}')
             if UID != '':
                 print(f'{UID=}')
+                continue
+
+            match command:
+                case Command.RESET:
+                    return State.INACTIVE
+                case Command.READER_DISABLE:
+                    return State.DISABLED
 
 
 class SessionIdle(BaseState):
