@@ -124,7 +124,8 @@ class Enabled(BaseState):
 
             # If we have a card read...
             if UID != '':
-                print(f'Card {UID.hex()} read!')
+                print(UID)
+                print(f'Card {bytes.fromhex(UID).hex()} read!')
 
             match command:
                 case Command.RESET:
