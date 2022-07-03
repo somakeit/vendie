@@ -95,14 +95,13 @@ class Disabled(BaseState):
                 case Command.READER_ENABLE:
                     break
                 case Command.EXPANSION_REQUEST_ID:
-                    self._state_machine.send_response(Response.PERIPHERAL_ID, data='00' * 29)
+                    self._state_machine.send_response(Response.PERIPHERAL_ID)
                 case Command.RESET:
                     return State.INACTIVE
                 case Command.READER_DISABLE:
-                    self._state_machine.send_response(Response.MALFUNCTION_ERROR)
-                    self._state_machine.send_response(Response.DISPLAY_REQUEST)
-                # case _:
-                #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
+                    self._state_machine.send_response(Response.NOT_ACKNOWLEDGED)
+                case _:
+                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.ENABLED
 
