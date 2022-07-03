@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from .responses import Response
 from .functions import flush_serial
 from .commands import Command
-from config import ENCODING
+from .config import ENCODING
 
 
 def _method_enter_exit(f):
