@@ -94,6 +94,8 @@ class Disabled(BaseState):
             match command:
                 case Command.READER_ENABLE:
                     break
+                case Command.EXPANSION_REQUEST_ID:
+                    self._state_machine.send_response(Response.PERIPHERAL_ID)
                 case Command.RESET:
                     return State.INACTIVE
                 case Command.READER_DISABLE:
