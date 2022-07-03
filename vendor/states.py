@@ -97,11 +97,12 @@ class Enabled(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
+        print('waiting for Card!')
         while True:
-            print('waiting for Card!')
             flush_serial(self.card_reader)
-            UID = self.card_reader.read(10)
-            print(UID)
+            UID = self.card_reader.read(10).decode(ENCODING)
+            if UID != '':
+                print(UID)
 
 
 class SessionIdle(BaseState):
