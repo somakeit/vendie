@@ -6,5 +6,8 @@ PORT_DESCRIPTIONS = {
 
 ENCODING = 'utf-8'
 
+API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
+
+# Debugging
 DEBUG = False
 SHOW_ENTER_EXIT = True
