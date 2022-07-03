@@ -51,10 +51,12 @@ class Inactive(BaseState):
 
         config_data_received = False
         config_prices_received = False
+        read_count = 0
 
         while not (config_data_received and config_prices_received):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
+            read_count += 1
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
@@ -64,6 +66,9 @@ class Inactive(BaseState):
                     config_data_received = True
                 case Command.SETUP_MAX_MIN_PRICES:
                     config_prices_received = True
+                case _:
+                    if read_count > 10:
+                        return State.INACTIVE
                 # case _:
                 #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
