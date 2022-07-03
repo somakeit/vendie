@@ -73,11 +73,17 @@ class Disabled(BaseState):
     @_method_enter_exit
     def run(self) -> State:
         command = None
-        while command != Command.READER_ENABLE:
+        while True:
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
             print(f'{command_str=}')
             print(f'{command=}')
+
+            match command:
+                case Command.READER_ENABLE:
+                    break
+                case _:
+                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.ENABLED
 
