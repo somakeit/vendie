@@ -47,7 +47,7 @@ class Inactive(BaseState):
         flush_serial(self.card_reader)
 
         # Send reset command
-        #self._state_machine.send_response(Response.JUST_RESET)
+        self._state_machine.send_response(Response.MALFUNCTION_ERROR)
 
         config_data_received = False
         config_prices_received = False
