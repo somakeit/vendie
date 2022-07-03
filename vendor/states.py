@@ -53,8 +53,8 @@ class Inactive(BaseState):
         while not (config_data_received and config_prices_received):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
-            print(f'{command_str=}')
-            print(f'{command=}')
+            # print(f'{command_str=}')
+            # print(f'{command=}')
 
             match command:
                 case Command.SETUP_CONFIG_DATA:
@@ -76,8 +76,8 @@ class Disabled(BaseState):
         while True:
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
-            print(f'{command_str=}')
-            print(f'{command=}')
+            # print(f'{command_str=}')
+            # print(f'{command=}')
 
             match command:
                 case Command.READER_ENABLE:
