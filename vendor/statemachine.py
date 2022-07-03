@@ -48,7 +48,7 @@ class CashlessDevice:
         command = command[1:-1]
         return command
 
-    def send_response(self, response: Response):
-        self.vendor.write(bytes.fromhex(response.value))
+    def send_response(self, response: Response, data: str = ''):
+        self.vendor.write(bytes.fromhex(response.value + data))
 
 
