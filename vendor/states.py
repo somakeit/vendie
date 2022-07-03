@@ -125,7 +125,7 @@ class Enabled(BaseState):
             # If we have a card read...
             if UID != '':
                 print(f'Card {UID} read!')
-                # TODO Validate Card using API here
+                # Validate Card using API here
 
             match command:
                 case Command.RESET:
