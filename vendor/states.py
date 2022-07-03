@@ -67,7 +67,7 @@ class Disabled(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        pass
+        return State.ENABLED
 
 
 class Enabled(BaseState):
