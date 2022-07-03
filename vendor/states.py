@@ -96,6 +96,8 @@ class Disabled(BaseState):
                     break
                 case Command.RESET:
                     return State.INACTIVE
+                case Command.READER_DISABLE:
+                    return State.DISABLED
                 case _:
                     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
