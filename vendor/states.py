@@ -68,6 +68,7 @@ class Inactive(BaseState):
                     config_prices_received = True
                 case _:
                     if read_count > 10:
+                        print('setup not received, reset!')
                         return State.INACTIVE
                 # case _:
                 #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
