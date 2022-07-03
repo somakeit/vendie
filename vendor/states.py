@@ -114,7 +114,7 @@ class Enabled(BaseState):
         print('Waiting for card...')
         while True:
             flush_serial(self.card_reader)
-            UID = self.card_reader.read().hex()
+            UID = self.card_reader.read().decode(ENCODING)
 
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
@@ -125,6 +125,7 @@ class Enabled(BaseState):
             # If we have a card read...
             if UID != '':
                 print(f'Card {UID} read!')
+                # TODO Validate Card using API here
 
             match command:
                 case Command.RESET:
