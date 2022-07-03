@@ -53,10 +53,12 @@ class Inactive(BaseState):
         config_prices_received = False
         read_count = 0
 
+        # It turns out that the responses to the SETUP commands are not needed
         while not (config_data_received and config_prices_received):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
             read_count += 1
+            print(read_count)
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
@@ -68,7 +70,7 @@ class Inactive(BaseState):
                     config_prices_received = True
                 case _:
                     if read_count > 10:
-                        print('setup not received, reset!')
+                        print('Setup not received! Attempting reset!')
                         return State.INACTIVE
                 # case _:
                 #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
@@ -103,7 +105,7 @@ class Enabled(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        print('waiting for Card!')
+        print('Waiting for card...')
         while True:
             flush_serial(self.card_reader)
             UID = self.card_reader.read(10).decode(ENCODING)
