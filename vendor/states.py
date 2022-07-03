@@ -122,9 +122,10 @@ class Enabled(BaseState):
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
+
+            # If we have a card read...
             if UID != '':
-                print(f'{UID=}')
-                continue
+                print(f'Card {UID} read!')
 
             match command:
                 case Command.RESET:
