@@ -93,10 +93,11 @@ class Disabled(BaseState):
 
             match command:
                 case Command.READER_ENABLE:
-                    break
+                    self._state_machine.send_response(Response.ACKNOWLEDGE)
                 case Command.EXPANSION_REQUEST_ID:
                     self._state_machine.send_response(Response.PERIPHERAL_ID, data='1234567890'*3)
                 case Command.RESET:
+                    self._state_machine.send_response(Response.ACKNOWLEDGE)
                     return State.INACTIVE
                 case Command.READER_DISABLE:
                     self._state_machine.send_response(Response.ACKNOWLEDGE)
