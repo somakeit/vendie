@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from .responses import Response
 from .functions import flush_serial
 from .commands import Command
+from config import ENCODING
 
 
 def _method_enter_exit(f):
@@ -44,23 +45,13 @@ class Inactive(BaseState):
         flush_serial(self.card_reader)
 
         # Send reset command
-        self.vendor.write(bytes.fromhex('00'))
-        # echo = self.vendor.read_until(bytes.from_hex('00'))
+        self.vendor.write(bytes.fromhex(Response.JUST_RESET.value))
 
         while True:
             try:
-                command = self.vendor.read_until(b'\x03')
-                # command_str = command.hex().upper()
-                command_ascii = command.decode('ascii')
-                command_utf8 = command.decode('utf-8')
-                command_str = command_ascii[1:5]
-                print(f'{command=}')
-                print(f'{bytearray(command)=}')
-                print(f'{command_utf8=}')
-                print(f'{command.hex()=}')
-                print(f'{str(command)=}')
-                print(f'{command_ascii=}')
-                print(f'{command_str=}')
+                command = self.vendor.read_until(b'\x03').decode(ENCODING)
+                command_str = command[1:-1]
+                print(command_str)
                 try:
                     print(Command(command_str))
                 except ValueError:
