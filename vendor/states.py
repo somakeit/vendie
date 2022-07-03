@@ -86,7 +86,7 @@ class Disabled(BaseState):
         while True:
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
-            print(command)
+            print(command, f'{command_str=}')
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
