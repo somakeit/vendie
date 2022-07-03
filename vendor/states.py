@@ -100,8 +100,8 @@ class Disabled(BaseState):
                     return State.INACTIVE
                 case Command.READER_DISABLE:
                     self._state_machine.send_response(Response.NOT_ACKNOWLEDGED)
-                case _:
-                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
+                # case _:
+                #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.ENABLED
 
