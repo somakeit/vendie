@@ -59,13 +59,13 @@ class Command(Enum):
     def find_command(command_string):
         try:
             command = Command(command_string[:4])
-        except KeyError:
+        except ValueError:
             command = None
 
         if command is None:
             try:
                 command = Command(command_string[:2])
-            except KeyError:
+            except ValueError:
                 command = None
 
         return command
