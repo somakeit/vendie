@@ -92,9 +92,11 @@ class Disabled(BaseState):
 
             match command:
                 case Command.READER_ENABLE:
-                    return State.ENABLED
+                    break
                 case Command.RESET:
                     return State.INACTIVE
+
+        return State.ENABLED
 
 
 class Enabled(BaseState):
