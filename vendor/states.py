@@ -103,8 +103,6 @@ class Disabled(BaseState):
                 case Command.READER_DISABLE:
                     self._state_machine.send_response(Response.ACKNOWLEDGE)
                     return State.DISABLED
-                # case _:
-                #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.ENABLED
 
@@ -117,7 +115,7 @@ class Enabled(BaseState):
         print('Waiting for card...')
         while True:
             flush_serial(self.card_reader)
-            UID = self.card_reader.read().decode(ENCODING)
+            UID = self.card_reader.read(10).decode(ENCODING)
 
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
