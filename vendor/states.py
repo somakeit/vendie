@@ -64,8 +64,8 @@ class Inactive(BaseState):
                     config_data_received = True
                 case Command.SETUP_MAX_MIN_PRICES:
                     config_prices_received = True
-                case _:
-                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
+                # case _:
+                #     self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.DISABLED
 
