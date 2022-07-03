@@ -3,14 +3,16 @@ from abc import ABC, abstractmethod
 from .responses import Response
 from .functions import flush_serial
 from .commands import Command
-from .config import ENCODING
+from .config import ENCODING, DEBUG, SHOW_ENTER_EXIT
 
 
 def _method_enter_exit(f):
     def wrapper(*args, **kwargs):
-        print(f'Entering the {args[0].__class__.__name__} state')
+        if SHOW_ENTER_EXIT:
+            print(f'Entering the {args[0].__class__.__name__} state')
         func = f(*args, *kwargs)
-        print(f'Exiting the {args[0].__class__.__name__} state')
+        if SHOW_ENTER_EXIT:
+            print(f'Exiting the {args[0].__class__.__name__} state')
         return func
     return wrapper
 
@@ -53,8 +55,9 @@ class Inactive(BaseState):
         while not (config_data_received and config_prices_received):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
-            # print(f'{command_str=}')
-            # print(f'{command=}')
+            if DEBUG:
+                print(f'{command_str=}')
+                print(f'{command=}')
 
             match command:
                 case Command.SETUP_CONFIG_DATA:
@@ -76,8 +79,9 @@ class Disabled(BaseState):
         while True:
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
-            # print(f'{command_str=}')
-            # print(f'{command=}')
+            if DEBUG:
+                print(f'{command_str=}')
+                print(f'{command=}')
 
             match command:
                 case Command.READER_ENABLE:
