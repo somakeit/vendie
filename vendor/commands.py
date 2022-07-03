@@ -56,7 +56,7 @@ class Command(Enum):
         bytes.fromhex(self.value)
 
     @staticmethod
-    def find_command(self, command_string):
+    def find_command(command_string):
         try:
             command = Command(command_string[:4])
         except KeyError:

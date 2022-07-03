@@ -46,19 +46,23 @@ class Inactive(BaseState):
 
         # Send reset command
         self._state_machine.send_response(Response.JUST_RESET)
-        # self.vendor.write(bytes.fromhex(Response.JUST_RESET.value))
 
-        while True:
-            try:
-                command_str = self._state_machine.read_command()
-                # command = self.vendor.read_until(b'\x03').decode(ENCODING)
-                print(command_str)
-                try:
-                    print(Command(command_str))
-                except ValueError:
-                    print('Unknown Command')
-            except KeyboardInterrupt:
-                break
+        config_data_received = False
+        config_prices_received = False
+
+        while not (config_data_received and config_prices_received):
+            command_str = self._state_machine.read_command()
+            command = Command.find_command(command_str)
+            print(f'{command_str=}')
+            print(f'{command=}')
+
+            match command:
+                case Command.SETUP_CONFIG_DATA:
+                    config_data_received = True
+                case Command.SETUP_MAX_MIN_PRICES:
+                    config_prices_received = True
+                case _:
+                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.DISABLED
 
@@ -68,6 +72,13 @@ class Disabled(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
+        command = None
+        while command != Command.READER_ENABLE:
+            command_str = self._state_machine.read_command()
+            command = Command.find_command(command_str)
+            print(f'{command_str=}')
+            print(f'{command=}')
+
         return State.ENABLED
 
 
