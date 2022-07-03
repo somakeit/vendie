@@ -96,7 +96,7 @@ class Disabled(BaseState):
                     self._state_machine.send_response(Response.ACKNOWLEDGE)
                     break
                 case Command.EXPANSION_REQUEST_ID:
-                    self._state_machine.send_response(Response.PERIPHERAL_ID, data='123456789012345')
+                    pass
                 case Command.RESET:
                     self._state_machine.send_response(Response.ACKNOWLEDGE)
                     return State.INACTIVE
