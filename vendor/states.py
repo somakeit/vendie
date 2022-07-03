@@ -95,6 +95,8 @@ class Disabled(BaseState):
                     break
                 case Command.RESET:
                     return State.INACTIVE
+                case _:
+                    self._state_machine.send_response(Response.CMD_OUT_OF_SEQUENCE)
 
         return State.ENABLED
 
