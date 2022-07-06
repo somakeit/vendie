@@ -58,10 +58,10 @@ class Inactive(BaseState):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
             read_count += 1
-            print(f'{read_count=}')
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
+                print(f'{read_count=}')
 
             match command:
                 case Command.SETUP_CONFIG_DATA:
@@ -116,10 +116,6 @@ class Enabled(BaseState):
         while True:
             # flush_serial(self.card_reader)
             uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
-            # print(f'{uid_raw=}, {type(uid_raw)=}')
-            # print(f'{uid_raw.hex()=}, {type(uid_raw.hex())=}')
-            # print(f'{str(uid_raw)=}')
-            # print(f'{uid_raw.decode(ENCODING)=}')
             UID = uid_raw.decode(ENCODING)[:-2]
 
             # If we have a card read...
