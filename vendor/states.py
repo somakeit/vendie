@@ -114,7 +114,7 @@ class Enabled(BaseState):
     def run(self) -> State:
         print('Waiting for card...')
         while True:
-            flush_serial(self.card_reader)
+            # flush_serial(self.card_reader)
             UID = self.card_reader.read().decode(ENCODING)
 
             command_str = self._state_machine.read_command()
