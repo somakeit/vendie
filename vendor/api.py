@@ -20,7 +20,7 @@ class TestApi(Api):
     API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
 
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
-        pass
+        return True
 
 
 class RealApi(Api):
