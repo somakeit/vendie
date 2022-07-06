@@ -115,18 +115,12 @@ class Enabled(BaseState):
         print('Waiting for card...')
         while True:
             # flush_serial(self.card_reader)
-            uid_raw = self.card_reader.read_until(b'\0d\0a')
+            uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
             print(f'{uid_raw=}, {type(uid_raw)=}')
             print(f'{uid_raw.hex()=}, {type(uid_raw.hex())=}')
             print(f'{str(uid_raw)=}')
-            print(f'{uid_raw.decode(ENCODING)}')
+            print(f'{uid_raw.decode(ENCODING)=}')
             UID = uid_raw.decode(ENCODING)
-
-            command_str = self._state_machine.read_command()
-            command = Command.find_command(command_str)
-            if DEBUG:
-                print(f'{command_str=}')
-                print(f'{command=}')
 
             # If we have a card read...
             if UID != '':
@@ -134,6 +128,12 @@ class Enabled(BaseState):
                 # Validate Card using API here
 
             else:
+                command_str = self._state_machine.read_command()
+                command = Command.find_command(command_str)
+                if DEBUG:
+                    print(f'{command_str=}')
+                    print(f'{command=}')
+
                 match command:
                     case Command.RESET:
                         return State.INACTIVE
