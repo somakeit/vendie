@@ -19,7 +19,7 @@ class CashlessDevice:
 
     def _init_devices(self):
         self.card_reader = get_serial_device_from_description(PORT_DESCRIPTIONS['card_reader'])
-        self.vendor = get_serial_device_from_description(PORT_DESCRIPTIONS['vendor'], timeout=1)
+        self.vendor = get_serial_device_from_description(PORT_DESCRIPTIONS['vendor'], timeout=0.5)
 
         print(f'Card Reader ({PORT_DESCRIPTIONS["card_reader"]})'
               f' {"found" if self.card_reader is not None else "not found!"}')
