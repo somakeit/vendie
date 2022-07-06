@@ -1,6 +1,6 @@
 from .responses import Response
 from .states import State, build_state_map, BaseState
-from .config import PORT_DESCRIPTIONS, ENCODING
+from .config import PORT_DESCRIPTIONS, ENCODING, API_TO_USE
 from .functions import get_serial_device_from_description
 from .commands import Command
 
@@ -12,6 +12,7 @@ class CashlessDevice:
         self.current_state: State = State.INACTIVE
         self.card_reader = None
         self.vendor = None
+        self.api = API_TO_USE
 
         self._init_devices()
 

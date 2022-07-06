@@ -1,12 +1,13 @@
+from api import TestApi, RealApi
+
 # Serial Devices
 PORT_DESCRIPTIONS = {
     'card_reader': 'USB2.0-Serial',
     'vendor': 'FT232R USB UART - FT232R USB UART'
 }
+API_TO_USE = TestApi  # Change between TestApi / RealApi
 
 ENCODING = 'utf-8'
-
-API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
 
 # Debugging
 DEBUG = False

@@ -32,6 +32,7 @@ class BaseState(ABC):
         self._state_machine = state_machine
         self.card_reader = state_machine.card_reader
         self.vendor = state_machine.vendor
+        self.api = state_machine.api
 
     @abstractmethod
     def run(self) -> State:
