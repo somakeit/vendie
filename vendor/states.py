@@ -44,7 +44,7 @@ class Inactive(BaseState):
     @_method_enter_exit
     def run(self) -> State:
         flush_serial(self.vendor)
-        flush_serial(self.card_reader)
+        # flush_serial(self.card_reader)
 
         # Send reset command
         self._state_machine.send_response(Response.JUST_RESET)
