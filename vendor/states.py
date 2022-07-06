@@ -123,7 +123,7 @@ class Enabled(BaseState):
             if UID != '':
                 print(f'Card {UID} read!')
                 # Validate Card using API here
-                if self.api.validate_card({}):
+                if self.api.validate_card(data={}):
                     print("We have a winner :D")
 
 
