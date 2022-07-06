@@ -116,8 +116,9 @@ class Enabled(BaseState):
         while True:
             # flush_serial(self.card_reader)
             uid_raw = self.card_reader.read(10)
-            print(f'{uid_raw=}')
-            print(f'{uid_raw.hex()=}')
+            print(f'{uid_raw=}, {type(uid_raw)=}')
+            print(f'{uid_raw.hex()=}, {type(uid_raw.hex())=}')
+            print(f'{str(uid_raw)=}')
             UID = uid_raw.decode(ENCODING)
 
             command_str = self._state_machine.read_command()
