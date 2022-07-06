@@ -58,6 +58,7 @@ class Inactive(BaseState):
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
             read_count += 1
+            print(f'{read_count=}')
             if DEBUG:
                 print(f'{command_str=}')
                 print(f'{command=}')
