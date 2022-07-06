@@ -12,7 +12,7 @@ class CashlessDevice:
         self.current_state: State = State.INACTIVE
         self.card_reader = None
         self.vendor = None
-        self.api = API_TO_USE
+        self.api = API_TO_USE()
 
         self._init_devices()
 
