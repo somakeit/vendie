@@ -23,7 +23,7 @@ class TestApi(Api):
     def __init__(self):
         import os
         print(os.getcwd())
-        with open('.data/test_cards.json') as jsonfile:
+        with open('./Vender/data/test_cards.json') as jsonfile:
             self.card_data = json.load(jsonfile)
 
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
