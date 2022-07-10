@@ -25,6 +25,7 @@ class TestApi(Api):
             self.card_data = json.load(jsonfile)
 
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
+        # Returns whether the card UID is found in the test_cards.json file
         return self.card_data.get(data['card_uid'], None) is not None
 
 
