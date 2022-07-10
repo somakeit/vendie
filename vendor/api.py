@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 
 
 class Api(ABC):
@@ -19,8 +20,12 @@ class TestApi(Api):
 
     API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
 
+    def __init__(self):
+        with open('data/test_cards.json') as jsonfile:
+            self.card_data = json.load(jsonfile)
+
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
-        return True
+        return self.card_data.get(data['card_uid'], None) is not None
 
 
 class RealApi(Api):
@@ -28,6 +33,7 @@ class RealApi(Api):
 
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
         pass
+
 
 if __name__ == '__main__':
     api = TestApi()
