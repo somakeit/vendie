@@ -16,7 +16,7 @@ class Api(ABC):
 
 
 class TestApi(Api):
-    """Sub class"""
+    """Testing API for development/testing of changes"""
 
     API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
 
@@ -29,7 +29,7 @@ class TestApi(Api):
 
 
 class RealApi(Api):
-    """Sub class"""
+    """Real API that connects to the actual cards/balance/API"""
 
     def validate_card(self, data: dict) -> bool:  # dict = data to send method
         pass
