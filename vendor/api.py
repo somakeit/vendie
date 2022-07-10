@@ -20,7 +20,7 @@ class TestApi(Api):
 
     API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
 
-    def __init__(self):\
+    def __init__(self):
         with open('./Vender/data/test_cards.json') as jsonfile:
             self.card_data = json.load(jsonfile)
 
