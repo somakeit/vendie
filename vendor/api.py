@@ -22,7 +22,7 @@ class TestApi(Api):
 
     def __init__(self):
         import os
-        print(os.curdir)
+        print(os.getcwd())
         with open('.data/test_cards.json') as jsonfile:
             self.card_data = json.load(jsonfile)
 
