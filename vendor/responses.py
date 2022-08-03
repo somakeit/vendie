@@ -15,7 +15,7 @@ class Response(Enum):
     PERIPHERAL_ID = '09'
     MALFUNCTION_ERROR = '0A'
     CMD_OUT_OF_SEQUENCE = '0B'
-    ACKNOWLEDGE = '00'
+    ACKNOWLEDGE = '0C'
     NOT_ACKNOWLEDGED = 'FF'
 
     def __bytes__(self):
