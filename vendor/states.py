@@ -133,22 +133,27 @@ class Enabled(BaseState):
                     else:
                         print('Invalid card!!!')
                         valid_card = False
+            else:
+                while True:
+                    try:
+                        command_str = self._state_machine.read_command()
+                        command = Command.find_command(command_str)
+                        # if DEBUG:
+                        print(f'{command_str=}')
+                        print(f'{command=}')
+                    except KeyboardInterrupt:
+                        break
 
-            command_str = self._state_machine.read_command()
-            command = Command.find_command(command_str)
-            # if DEBUG:
-            print(f'{command_str=}')
-            print(f'{command=}')
+                return State.INACTIVE
 
-            match command:
-                case Command.POLL if valid_card:
-                    self._state_machine.send_response(Response.BEGIN_SESSION)
-                    return State.SESSION_IDLE
-                case Command.RESET:
-                    pass
-                    # return State.INACTIVE
-                case Command.READER_DISABLE:
-                    return State.DISABLED
+            # match command:
+            #     case Command.POLL if valid_card:
+            #         self._state_machine.send_response(Response.BEGIN_SESSION)
+            #         return State.SESSION_IDLE
+            #     case Command.RESET:
+            #         return State.INACTIVE
+            #     case Command.READER_DISABLE:
+            #         return State.DISABLED
 
 
 class SessionIdle(BaseState):
