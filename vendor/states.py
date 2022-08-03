@@ -118,20 +118,21 @@ class Enabled(BaseState):
         valid_card = False
         while True:
             # flush_serial(self.card_reader)
-            uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
-            UID = uid_raw.decode(ENCODING)[:-2]
+            if not valid_card:
+                uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
+                UID = uid_raw.decode(ENCODING)[:-2]
 
-            # If we have a card read...
-            if UID != '':
-                print(f'Card {UID} read!')
-                # Validate Card using API here
-                api_data = {'card_uid': UID}
-                if self.api.validate_card(data=api_data):
-                    print("We have a winner :D")
-                    valid_card = True
-                else:
-                    print('Invalid card!!!')
-                    valid_card = False
+                # If we have a card read...
+                if UID != '':
+                    print(f'Card {UID} read!')
+                    # Validate Card using API here
+                    api_data = {'card_uid': UID}
+                    if self.api.validate_card(data=api_data):
+                        print("We have a winner :D")
+                        valid_card = True
+                    else:
+                        print('Invalid card!!!')
+                        valid_card = False
 
             command_str = self._state_machine.read_command()
             command = Command.find_command(command_str)
