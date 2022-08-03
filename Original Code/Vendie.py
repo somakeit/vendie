@@ -17,7 +17,7 @@ for port in list(list_ports.comports()):
 if 'vendSer' not in locals():
     print('Vender not found')
     quit()
-if 'card_reader' not in locals():
+if 'cardRdr' not in locals():
     print('Cardreader not found')
     quit()
 
