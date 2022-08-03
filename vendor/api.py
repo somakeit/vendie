@@ -28,6 +28,19 @@ class TestApi(Api):
         # Returns whether the card UID is found in the test_cards.json file
         return self.card_data.get(data['card_uid'], None) is not None
 
+    # See page 96 of docs about vending, VMC Command, Cashless Devide, Results table!!
+
+    def check_request_amount(self, data):
+        """Check that the required funds are available"""
+        pass
+
+    def send_vend_request(self):
+        pass
+
+
+
+
+
 
 class RealApi(Api):
     """Real API that connects to the actual cards/balance/API"""
