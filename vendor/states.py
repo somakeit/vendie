@@ -14,6 +14,7 @@ def _method_enter_exit(f):
         if SHOW_ENTER_EXIT:
             print(f'Exiting the {args[0].__class__.__name__} state')
         return func
+
     return wrapper
 
 
@@ -114,6 +115,7 @@ class Enabled(BaseState):
     @_method_enter_exit
     def run(self) -> State:
         print('Waiting for card...')
+        valid_card = False
         while True:
             # flush_serial(self.card_reader)
             uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
@@ -126,21 +128,25 @@ class Enabled(BaseState):
                 api_data = {'card_uid': UID}
                 if self.api.validate_card(data=api_data):
                     print("We have a winner :D")
+                    valid_card = True
                 else:
                     print('Invalid card!!!')
+                    valid_card = False
 
-            else:
-                command_str = self._state_machine.read_command()
-                command = Command.find_command(command_str)
-                if DEBUG:
-                    print(f'{command_str=}')
-                    print(f'{command=}')
+            command_str = self._state_machine.read_command()
+            command = Command.find_command(command_str)
+            # if DEBUG:
+            print(f'{command_str=}')
+            print(f'{command=}')
 
-                match command:
-                    case Command.RESET:
-                        return State.INACTIVE
-                    case Command.READER_DISABLE:
-                        return State.DISABLED
+            match command:
+                case Command.POLL if valid_card:
+                    self._state_machine.send_response(Response.BEGIN_SESSION)
+                    return State.SESSION_IDLE
+                case Command.RESET:
+                    return State.INACTIVE
+                case Command.READER_DISABLE:
+                    return State.DISABLED
 
 
 class SessionIdle(BaseState):
