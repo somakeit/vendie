@@ -19,7 +19,7 @@ class CashlessDevice:
         self._state_map: dict[State:BaseState] = build_state_map(self)
 
     def _init_devices(self):
-        self.card_reader = get_serial_device_from_description(PORT_DESCRIPTIONS['card_reader'], timeout=0.5)
+        self.card_reader = get_serial_device_from_description(PORT_DESCRIPTIONS['card_reader']s)
         self.vendor = get_serial_device_from_description(PORT_DESCRIPTIONS['vendor'], timeout=0.5)
 
         print(f'Card Reader ({PORT_DESCRIPTIONS["card_reader"]})'
