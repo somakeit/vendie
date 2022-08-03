@@ -167,6 +167,8 @@ class SessionIdle(BaseState):
                     self._state_machine.send_response(Response.END_SESSION)
                     return State.DISABLED
 
+            self._state_machine.send_response(Response.BEGIN_SESSION)
+
 
 class Vend(BaseState):
     name = State.VEND
