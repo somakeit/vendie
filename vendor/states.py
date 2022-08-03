@@ -118,42 +118,36 @@ class Enabled(BaseState):
         valid_card = False
         while True:
             # flush_serial(self.card_reader)
-            if not valid_card:
-                uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
-                UID = uid_raw.decode(ENCODING)[:-2]
+            uid_raw = self.card_reader.read_until(b'\0d\0a', size=10)
+            UID = uid_raw.decode(ENCODING)[:-2]
 
-                # If we have a card read...
-                if UID != '':
-                    print(f'Card {UID} read!')
-                    # Validate Card using API here
-                    api_data = {'card_uid': UID}
-                    if self.api.validate_card(data=api_data):
-                        print("We have a winner :D")
-                        valid_card = True
-                    else:
-                        print('Invalid card!!!')
-                        valid_card = False
+            # If we have a card read...
+            if UID != '':
+                print(f'Card {UID} read!')
+                # Validate Card using API here
+                api_data = {'card_uid': UID}
+                if self.api.validate_card(data=api_data):
+                    print("We have a winner :D")
+                    self._state_machine.send_response(Response.BEGIN_SESSION)
+                    return State.SESSION_IDLE
+                else:
+                    print('Invalid card!!!')
+                    valid_card = False
             else:
-                while True:
-                    try:
-                        command_str = self._state_machine.read_command()
-                        command = Command.find_command(command_str)
-                        # if DEBUG:
-                        print(f'{command_str=}')
-                        print(f'{command=}')
-                    except KeyboardInterrupt:
-                        break
+                command_str = self._state_machine.read_command()
+                command = Command.find_command(command_str)
+                # if DEBUG:
+                print(f'{command_str=}')
+                print(f'{command=}')
 
-                return State.INACTIVE
-
-            # match command:
-            #     case Command.POLL if valid_card:
-            #         self._state_machine.send_response(Response.BEGIN_SESSION)
-            #         return State.SESSION_IDLE
-            #     case Command.RESET:
-            #         return State.INACTIVE
-            #     case Command.READER_DISABLE:
-            #         return State.DISABLED
+                match command:
+                    case Command.POLL if valid_card:
+                        self._state_machine.send_response(Response.BEGIN_SESSION)
+                        return State.SESSION_IDLE
+                    case Command.RESET:
+                        return State.INACTIVE
+                    case Command.READER_DISABLE:
+                        return State.DISABLED
 
 
 class SessionIdle(BaseState):
@@ -161,7 +155,17 @@ class SessionIdle(BaseState):
 
     @_method_enter_exit
     def run(self) -> State:
-        pass
+        while True:
+            command_str = self._state_machine.read_command()
+            command = Command.find_command(command_str)
+            # if DEBUG:
+            print(f'{command_str=}')
+            print(f'{command=}')
+
+            match command:
+                case Command.VEND_SESSION_COMPLETE:
+                    self._state_machine.send_response(Response.END_SESSION)
+                    return State.DISABLED
 
 
 class Vend(BaseState):
