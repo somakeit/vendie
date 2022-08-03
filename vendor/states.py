@@ -145,7 +145,7 @@ class Enabled(BaseState):
                     self._state_machine.send_response(Response.BEGIN_SESSION)
                     return State.SESSION_IDLE
                 case Command.RESET:
-                    return State.INACTIVE
+                    # return State.INACTIVE
                 case Command.READER_DISABLE:
                     return State.DISABLED
 
