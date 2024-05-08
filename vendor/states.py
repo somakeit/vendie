@@ -70,6 +70,8 @@ class Inactive(BaseState):
                     config_data_received = True
                 case Command.SETUP_MAX_MIN_PRICES:
                     config_prices_received = True
+                case Command.RESET:
+                    self._state_machine.send_response(Response.ACKNOWLEDGE)
                 case _:
                     if read_count > 10:
                         print('Setup not received! Attempting reset!')
@@ -162,10 +164,18 @@ class SessionIdle(BaseState):
             print(f'{command_str=}')
             print(f'{command=}')
 
+            # command_str = self._state_machine.vendor.read(24)
+            # command = Command.find_command(command_str)
+            # # if DEBUG:
+            # print(f'{command_str=}')
+            # print(f'{command=}')
+
             match command:
                 case Command.VEND_SESSION_COMPLETE:
                     self._state_machine.send_response(Response.END_SESSION)
                     return State.DISABLED
+                case Command.EXPANSION_REQUEST_ID:
+                    self._state_machine.send_response(Response.PERIPHERAL_ID)
 
             self._state_machine.send_response(Response.BEGIN_SESSION)
 

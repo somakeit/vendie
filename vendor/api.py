@@ -18,7 +18,7 @@ class Api(ABC):
 class TestApi(Api):
     """Testing API for development/testing of changes"""
 
-    API_ENDPOINT = "https://dev.c38.co/smi/vend_api.php"
+    API_ENDPOINT = "https://dev.c83.co/smi/vend_api.php"
 
     def __init__(self):
         with open('./Vender/data/test_cards.json') as jsonfile:

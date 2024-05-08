@@ -46,6 +46,7 @@ class CashlessDevice:
     def read_command(self) -> Command:
         """Reads until Hex value 03 which signifies end of command"""
         command = self.vendor.read_until(b'\x03').decode(ENCODING)
+        print(f'{command=}')
         command = command[1:-1]
         return command
 

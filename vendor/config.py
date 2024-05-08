@@ -10,5 +10,5 @@ API_TO_USE = TestApi  # Change between TestApi / RealApi
 ENCODING = 'utf-8'
 
 # Debugging
-DEBUG = False
+DEBUG = True
 SHOW_ENTER_EXIT = True
