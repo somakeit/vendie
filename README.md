@@ -10,4 +10,6 @@ Cashless device is section 7
 https://github.com/eltariel/sparkvend
 custom PI hat and teensy (with 9 bit uart support)
 
+# Vendiverse Implementation
+https://web.archive.org/web/20180124042241/http://eliverse.com/content/vendiverse/
 
