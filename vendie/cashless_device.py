@@ -1,0 +1,27 @@
+from vendie.states import State
+from vendie.serial_factory import SerialFactory
+from vendie.config import RFID_SERIAL_PORT, MDB_SERIAL_PORT, MDB_SERIAL_PORT_DESCRIPTION, RFID_SERIAL_PORT_DESCRIPTION
+from serial import Serial
+
+
+class CashlessDevice:
+    def __init__(self):
+        self.current_state: State | None = None
+        self.card_reader: Serial | None = SerialFactory.get_serial_device(port=RFID_SERIAL_PORT,
+                                                                          description=RFID_SERIAL_PORT_DESCRIPTION)
+        self.vending_machine: Serial | None = SerialFactory.get_serial_device(port=MDB_SERIAL_PORT,
+                                                                              description=MDB_SERIAL_PORT_DESCRIPTION)
+
+    def start(self):
+        if self.card_reader is None:
+            print('Card reader not found')
+        if self.vending_machine is None:
+            print('Vending machine not found')
+
+        if None in (self.card_reader, self.vending_machine):
+            print('Unable to start')
+            return
+
+
+
+

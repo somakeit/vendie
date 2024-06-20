@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "vendie"
+version = "0.1.0"
+description = ""
+authors = ["sam57719 <sam57719@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-decouple = "^3.8"
+pyserial = "^3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
