@@ -12,17 +12,19 @@ class CashlessDevice:
         self.vending_machine: Serial | None = SerialFactory.get_serial_device(port=MDB_SERIAL_PORT,
                                                                               description=MDB_SERIAL_PORT_DESCRIPTION)
 
-    def start(self):
+    def check_connections(self):
         if self.card_reader is None:
             print('Card reader not found')
+        else:
+            print(f'Card reader found at port {self.card_reader.port}')
+
         if self.vending_machine is None:
             print('Vending machine not found')
+        else:
+            print(f'Vending machine found at port {self.vending_machine.port}')
 
-        if None in (self.card_reader, self.vending_machine):
-            print('Unable to start')
-            return
-
-        print('Starting!')
+    def start(self):
+        self.check_connections()
 
 
 
