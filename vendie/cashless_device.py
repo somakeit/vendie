@@ -22,6 +22,8 @@ class CashlessDevice:
             print('Unable to start')
             return
 
+        print('Starting!')
+
 
 
 
