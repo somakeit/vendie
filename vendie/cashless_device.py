@@ -7,10 +7,8 @@ from serial import Serial
 class CashlessDevice:
     def __init__(self):
         self.current_state: State | None = None
-        self.card_reader: Serial | None = SerialFactory.get_serial_device(port=RFID_SERIAL_PORT,
-                                                                          description=RFID_SERIAL_PORT_DESCRIPTION)
-        self.vending_machine: Serial | None = SerialFactory.get_serial_device(port=MDB_SERIAL_PORT,
-                                                                              description=MDB_SERIAL_PORT_DESCRIPTION)
+        self.card_reader: Serial | None = SerialFactory.get_serial_device(port=RFID_SERIAL_PORT, description=RFID_SERIAL_PORT_DESCRIPTION)
+        self.vending_machine: Serial | None = SerialFactory.get_serial_device(port=MDB_SERIAL_PORT, description=MDB_SERIAL_PORT_DESCRIPTION)
 
     def check_connections(self) -> bool:
         if self.card_reader is None:
@@ -28,3 +26,7 @@ class CashlessDevice:
     def start(self):
         if not self.check_connections():
             return
+
+        while True:
+            pass
+
