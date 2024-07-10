@@ -37,6 +37,9 @@ if __name__ == '__main__':
     while True:
         data = vending_mdb.read_until(b'\x03')
 
+        if not data:
+            continue
+
         _, *command_bytes, checksum = data
         command = bytes(command_bytes).decode('ascii')
 
