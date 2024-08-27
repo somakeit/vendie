@@ -13,3 +13,5 @@ custom PI hat and teensy (with 9 bit uart support)
 # Vendiverse Implementation
 https://web.archive.org/web/20180124042241/http://eliverse.com/content/vendiverse/
 
+# Python Implemetation (Raw MDB as far as I can tell)
+https://github.com/membermatters/pymultidropbus
