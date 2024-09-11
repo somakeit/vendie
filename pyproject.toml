@@ -2,13 +2,15 @@
 name = "vendie"
 version = "0.1.0"
 description = ""
-authors = ["sam57719 <sam57719@gmail.com>"]
-readme = "README.md"
+authors = ["Sam Cork <sam57719@gmail.com>"]
+
+packages = [{ include = "vendie", from = "src" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12.5"
 python-decouple = "^3.8"
 pyserial = "^3.5"
+fuckit = "^4.8.1"
 
 
 [build-system]

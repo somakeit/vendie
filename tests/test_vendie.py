@@ -29,6 +29,8 @@ if __name__ == '__main__':
     card_reader: Serial
     vending_mdb: Serial
 
+    DUMMY_CARD = 'eb362403'
+
     card_reader.flush()
     vending_mdb.flush()
 
@@ -37,19 +39,38 @@ if __name__ == '__main__':
     vending_mdb.write(bytes.fromhex('00'))
 
     while True:
-        data = vending_mdb.read_until(b'\x03')
+        raw_data = vending_mdb.read_until(b'\x03')
+        data = raw_data.rstrip(b'\x03').lstrip(b'\x02')
+
+        print(raw_data, data, sep='\n')
 
         if not data:
             continue
 
-        _, *command_bytes, checksum = data
+        *command_bytes, checksum = data
         command = bytes(command_bytes).decode('ascii')
 
+        print(f"{command=}", f"{checksum=}")
+
         print(command)
+        if command.startswith('1100'):
+            vmc_feature_level = int(command[4:6], 16)
+            columns_on_display = int(command[6:8], 16)
+            rows_on_display = int(command[8:10], 16)
+            extra = command[10:]
+            print(f"{vmc_feature_level=}")
+            print(f"{columns_on_display=}")
+            print(f"{rows_on_display=}")
+            print(f"{extra=}")
+
+
         if command.startswith('1401'):
             while True:
-                fob = card_reader.read_until(b'\r\n', size=10)
-                print(f"{fob=}")
+                if DUMMY_CARD is None:
+                    fob = card_reader.read_until(b'\r\n', size=10)
+                else:
+                    fob = DUMMY_CARD
+                print(f"\n{fob=}\n")
                 if fob:
                     vending_mdb.write(bytes.fromhex('03FFFF01'))
                     break
