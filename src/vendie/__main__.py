@@ -1,3 +1,5 @@
+from asyncio import timeout
+
 from serial import Serial
 from serial.serialutil import SerialException
 
@@ -12,11 +14,14 @@ def get_serial(port: str, **kwargs) -> Serial | None:
     return serial
 
 def main():
-    vending_machine: Serial | None = get_serial(VENDING_MACHINE_MDB_SERIAL_PORT, timeout=10)
-    card_reader: Serial | None = get_serial(CARD_READER_SERIAL_PORT, timeout=10)
+    vending_machine: Serial | None = get_serial(VENDING_MACHINE_MDB_SERIAL_PORT, timeout=1)
+    card_reader: Serial | None = get_serial(CARD_READER_SERIAL_PORT, timeout=1)
 
     assert vending_machine is not None, "Failed to connect to vending machine"
     assert card_reader is not None, "Failed to connect to card reader"
+
+    vending_machine.flush()
+    card_reader.flush()
 
     state_machine = CashlessDevice(vending_machine, card_reader)
     state_machine.start()
