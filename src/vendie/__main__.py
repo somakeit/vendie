@@ -14,8 +14,8 @@ def get_serial(port: str, **kwargs) -> Serial | None:
     return serial
 
 def main():
-    vending_machine: Serial | None = get_serial(VENDING_MACHINE_MDB_SERIAL_PORT, timeout=1)
-    card_reader: Serial | None = get_serial(CARD_READER_SERIAL_PORT, timeout=1)
+    vending_machine: Serial | None = get_serial(VENDING_MACHINE_MDB_SERIAL_PORT, timeout=.5)
+    card_reader: Serial | None = get_serial(CARD_READER_SERIAL_PORT, timeout=.5)
 
     assert vending_machine is not None, "Failed to connect to vending machine"
     assert card_reader is not None, "Failed to connect to card reader"
@@ -25,7 +25,6 @@ def main():
 
     state_machine = CashlessDevice(vending_machine, card_reader)
     state_machine.start()
-
 
 
 
