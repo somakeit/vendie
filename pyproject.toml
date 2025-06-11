@@ -1,18 +1,14 @@
-[tool.poetry]
+[project]
 name = "vendie"
 version = "0.1.0"
 description = ""
-authors = ["Sam Cork <sam57719@gmail.com>"]
-
-packages = [{ include = "vendie", from = "src" }]
-
-[tool.poetry.dependencies]
-python = "^3.12.5"
-python-decouple = "^3.8"
-pyserial = "^3.5"
-fuckit = "^4.8.1"
-
+authors = [{ name = "Sam Cork", email = "sam57719@gmail.com" }]
+requires-python = ">=3.11.0"
+dependencies = [
+    "python-decouple>=3.8",
+    "pyserial>=3.5"
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
