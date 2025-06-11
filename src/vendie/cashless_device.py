@@ -1,3 +1,4 @@
+import time
 from enum import StrEnum
 from idlelib.configdialog import tracers
 from types import new_class
@@ -24,7 +25,7 @@ class State(StrEnum):
 
 class CashlessDevice:
 
-    READER_SETUP_DATA: str = "0102203201020510"
+    READER_SETUP_DATA: str = "0102203201020210"
 
     def __init__(self, vending_machine: Serial, card_reader: Serial):
         self.vending_machine: Serial = vending_machine
@@ -71,12 +72,14 @@ class CashlessDevice:
                 if data.startswith('00'):
                     setup_config_data = data
                     print(f"{setup_config_data=}")
-
-                    # ENABLE CASH SALE
-                    self.send_vending_machine_data(data_with_checksum(self.READER_SETUP_DATA))
                 elif data.startswith('01'):
                     setup_prices_data = data
                     print(f"{setup_prices_data=}")
+
+        time.sleep(2)
+
+        # ENABLE CASH SALE
+        self.send_vending_machine_data(data_with_checksum(self.READER_SETUP_DATA))
 
         return State.DISABLED
 
