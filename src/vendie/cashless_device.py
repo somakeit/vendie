@@ -25,7 +25,7 @@ class State(StrEnum):
 
 class CashlessDevice:
 
-    READER_SETUP_DATA: str = "0102203201020201"
+    READER_SETUP_DATA: str = "0102826001020210"
 
     def __init__(self, vending_machine: Serial, card_reader: Serial):
         self.vending_machine: Serial = vending_machine
@@ -79,6 +79,7 @@ class CashlessDevice:
                     setup_prices_data = data
                     print(f"{setup_prices_data=}")
 
+        time.sleep(2)
 
         return State.DISABLED
 
