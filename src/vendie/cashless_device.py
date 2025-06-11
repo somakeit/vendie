@@ -97,6 +97,7 @@ class CashlessDevice:
 
     def handle_enabled_state(self):
         self.member_card = None
+        self.card_reader.flush()
         print("Waiting for member card...")
         while True:
             command = self.get_vending_machine_data(once=True)
