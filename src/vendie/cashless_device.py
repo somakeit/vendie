@@ -72,14 +72,13 @@ class CashlessDevice:
                 if data.startswith('00'):
                     setup_config_data = data
                     print(f"{setup_config_data=}")
+
+                    # ENABLE CASH SALE
+                    self.send_vending_machine_data(data_with_checksum(self.READER_SETUP_DATA))
                 elif data.startswith('01'):
                     setup_prices_data = data
                     print(f"{setup_prices_data=}")
 
-        time.sleep(2)
-
-        # ENABLE CASH SALE
-        self.send_vending_machine_data(data_with_checksum(self.READER_SETUP_DATA))
 
         return State.DISABLED
 
